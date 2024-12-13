@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WheatChain Email Sender</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+<script src="assets/js/tinymce/tinymce.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body x-data="emailApp()">
+    <header>
+        <img src="assets/images/wheatsol-logo.png" alt="WheatChain Logo" class="logo">
+        <h1>WheatChain Email Sender</h1>
+    </header>
+    <main>
+        <form id="emailForm" @submit.prevent="sendEmail">
+            <div class="form-group">
+                <label for="to">To:</label>
+                <input type="email" id="to" name="to" required x-model="to">
+            </div>
+            <div class="form-group">
+                <label for="recipientName">Recipient Name:</label>
+                <input type="text" id="recipientName" name="recipientName" required x-model="recipientName">
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" name="subject" required x-model="subject">
+            </div>
+            <div class="form-group">
+                <label for="template">Template:</label>
+                <select id="template" name="template" x-model="selectedTemplate" @change="loadTemplate">
+                    <option value="">Select a template</option>
+                    <option value="professional">Professional</option>
+                    <option value="newsletter">Newsletter</option>
+                    <option value="notification">Notification</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="content">Content:</label>
+                <textarea id="content" name="content" x-model="content"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="attachment">Attachment:</label>
+                <input type="file" id="attachment" name="attachment" @change="handleFileUpload">
+            </div>
+            <button type="submit" :disabled="sending">
+                <span x-show="!sending">Send Email</span>
+                <span x-show="sending">Sending...</span>
+            </button>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2024 WheatChain. All rights reserved.</p>
+    </footer>
+    <script src="assets/js/app.js"></script>
+      <script>
+    function init() {
+      tinymce.init({
+        selector: '#content',
+        plugins: 'link image code',
+        toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | link image | code',
+        height: 300,
+        license_key: 'gpl'  // Add this line to agree to the open-source license
+      });
+    }
+    init();
+  </script>
+</body>
+</html>
